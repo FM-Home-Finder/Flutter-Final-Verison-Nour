@@ -338,7 +338,7 @@ class _CreateAnnonceScreenState extends State<CreateAnnonceScreen> {
         TextFormField(
           controller: _prixController,
           decoration: InputDecoration(
-            labelText: 'Prix * (${_selectedType == 'location' ? '€/mois' : '€'})',
+            labelText: 'Prix * (${_selectedType == 'location' ? 'TND/mois' : 'TND'})',
             border: const OutlineInputBorder(),
           ),
           keyboardType: TextInputType.number,

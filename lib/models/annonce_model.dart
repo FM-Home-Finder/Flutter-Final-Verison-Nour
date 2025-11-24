@@ -112,7 +112,6 @@ class Annonce {
     return [];
   }
 
-  String get formattedPrix => '${prix.toInt()} €${type == 'location' ? '/mois' : ''}';
-  String get surfaceText => '$surface m²';
+String get formattedPrix => '${prix.toInt()} TND${type == 'location' ? '/mois' : ''}';  String get surfaceText => '$surface m²';
   String get chambresText => chambres > 0 ? '$chambres chambre${chambres > 1 ? 's' : ''}' : 'Studio';
 }
