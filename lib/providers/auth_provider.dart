@@ -4,12 +4,11 @@ import '../services/api_service.dart';
 import '../models/user_model.dart';
 import'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart'; 
-
 class AuthProvider with ChangeNotifier {
   final ApiService _apiService = ApiService();
   
   User? _user;
-  
+  String? _token; // AJOUTEZ cette variable
   bool _isAuthenticated = false;
   bool _isLoading = false;
   String? _error;
@@ -18,6 +17,8 @@ class AuthProvider with ChangeNotifier {
   bool get isAuthenticated => _isAuthenticated;
   bool get isLoading => _isLoading;
   String? get error => _error;
+  // AJOUTEZ ce getter
+  String? get token => _token;
 
   AuthProvider() {
     checkAuthStatus();
@@ -32,6 +33,8 @@ class AuthProvider with ChangeNotifier {
       final hasToken = await _apiService.isAuthenticated();
       
       if (hasToken) {
+        // Récupérer le token
+        _token = await _apiService.getToken(); // AJOUTEZ cette ligne
         // Récupérer les infos utilisateur
         final user = await _apiService.getCurrentUser();
         if (user != null) {
@@ -44,11 +47,13 @@ class AuthProvider with ChangeNotifier {
       } else {
         _isAuthenticated = false;
         _user = null;
+        _token = null; // AJOUTEZ cette ligne
       }
     } catch (e) {
       print('Erreur checkAuthStatus: $e');
       _isAuthenticated = false;
       _user = null;
+      _token = null; // AJOUTEZ cette ligne
     } finally {
       _isLoading = false;
       notifyListeners();
@@ -67,70 +72,73 @@ class AuthProvider with ChangeNotifier {
         _user = User.fromJson(result['user']);
         _isAuthenticated = true;
         _error = null;
+        // AJOUTEZ cette ligne pour sauvegarder le token
+        _token = await _apiService.getToken();
       } else {
         _error = result['message'];
         _isAuthenticated = false;
         _user = null;
+        _token = null; // AJOUTEZ cette ligne
       }
     } catch (e) {
       _error = 'Erreur de connexion: $e';
       _isAuthenticated = false;
       _user = null;
+      _token = null; // AJOUTEZ cette ligne
     } finally {
       _isLoading = false;
       notifyListeners();
     }
   }
 
+  Future<void> register(Map<String, dynamic> userData, {XFile? photoProfil}) async {
+    _isLoading = true;
+    _error = null;
+    notifyListeners();
 
-  // CORRECTION : Ajout du paramètre photoProfil
-Future<void> register(Map<String, dynamic> userData, {XFile? photoProfil}) async {
-  _isLoading = true;
-  _error = null;
-  notifyListeners();
-
-  try {
-    final result = await _apiService.register(userData, photoProfil: photoProfil);
-    
-    if (result['success'] == true) {
-      // INSCRIPTION RÉUSSIE - CONNECTER AUTOMATIQUEMENT
-      _user = User.fromJson(result['user']);
-      _isAuthenticated = true; // ← CONNEXION AUTOMATIQUE
-      _error = null;
+    try {
+      final result = await _apiService.register(userData, photoProfil: photoProfil);
       
-      // Sauvegarder la session
-      final prefs = await SharedPreferences.getInstance();
-      await prefs.setString('user', jsonEncode(result['user']));
-      
-      print('✅ Inscription réussie - Utilisateur connecté automatiquement');
-      notifyListeners();
-    } else {
-      _error = result['message'] ?? 'Erreur lors de l\'inscription';
+      if (result['success'] == true) {
+        _user = User.fromJson(result['user']);
+        _isAuthenticated = true;
+        _error = null;
+        // AJOUTEZ cette ligne pour sauvegarder le token
+        _token = result['token']; // Le token est retourné par ApiService.register
+      } else {
+        _error = result['message'] ?? 'Erreur lors de l\'inscription';
+        _isAuthenticated = false;
+        _user = null;
+        _token = null; // AJOUTEZ cette ligne
+      }
+    } catch (e) {
+      _error = 'Erreur lors de l\'inscription: $e';
       _isAuthenticated = false;
       _user = null;
+      _token = null; // AJOUTEZ cette ligne
+    } finally {
+      _isLoading = false;
       notifyListeners();
     }
-  } catch (e) {
-    _error = 'Erreur lors de l\'inscription: $e';
-    _isAuthenticated = false;
-    _user = null;
-    notifyListeners();
-  } finally {
-    _isLoading = false;
-    notifyListeners();
-  }
-}
-  Future<void> initialize() async {
-    await checkAuthStatus();
   }
 
   Future<void> logout() async {
     await _apiService.logout();
     _user = null;
     _isAuthenticated = false;
+    _token = null; // AJOUTEZ cette ligne
     _error = null;
     notifyListeners();
   }
+
+  // ... le reste de vos méthodes reste inchangé ...
+
+
+  Future<void> initialize() async {
+    await checkAuthStatus();
+  }
+
+
   // Dans AuthProvider
 Future<void> updateProfile(Map<String, dynamic> userData) async {
   _isLoading = true;
@@ -171,7 +179,36 @@ Future<void> updateProfilePhoto(XFile photo) async {
     notifyListeners();
   }
 }
+// Dans AuthProvider, ajoutez cette méthode après updateProfilePhoto
+Future<void> changePassword({
+  required String currentPassword,
+  required String newPassword,
+  required String confirmPassword,
+}) async {
+  _isLoading = true;
+  _error = null;
+  notifyListeners();
 
+  try {
+    final result = await _apiService.changePassword(
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+      confirmPassword: confirmPassword,
+    );
+    
+    if (result['success'] == true) {
+      _error = null;
+      // Succès - vous pouvez ajouter une notification ou autre
+    } else {
+      _error = result['message'];
+    }
+  } catch (e) {
+    _error = 'Erreur lors du changement de mot de passe: $e';
+  } finally {
+    _isLoading = false;
+    notifyListeners();
+  }
+}
   void clearError() {
     _error = null;
     notifyListeners();

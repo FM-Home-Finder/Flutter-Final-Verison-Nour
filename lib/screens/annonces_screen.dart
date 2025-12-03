@@ -175,23 +175,35 @@ class _AnnoncesScreenState extends State<AnnoncesScreen> {
             onRefresh: () async {
               await context.read<AnnonceProvider>().loadAnnonces();
             },
-            child: ListView.builder(
-              itemCount: annonceProvider.annonces.length,
-              itemBuilder: (context, index) {
-                final annonce = annonceProvider.annonces[index];
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AnnonceDetailScreen(annonceId: annonce.idAnnonce),
-                      ),
-                    );
-                  },
-                  child: AnnonceCard(annonce: annonce),
-                );
-              },
+            child: RefreshIndicator(
+  onRefresh: () async {
+    await context.read<AnnonceProvider>().loadAnnonces();
+  },
+  child: GridView.builder(
+    padding: const EdgeInsets.all(16.0),
+    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+      crossAxisCount: 2, // 2 annonces par ligne
+      crossAxisSpacing: 16.0, // Espacement horizontal
+      mainAxisSpacing: 16.0, // Espacement vertical
+      childAspectRatio: 0.7, // Ajustez ce ratio selon vos besoins
+    ),
+    itemCount: annonceProvider.annonces.length,
+    itemBuilder: (context, index) {
+      final annonce = annonceProvider.annonces[index];
+      return GestureDetector(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => AnnonceDetailScreen(annonceId: annonce.idAnnonce),
             ),
+          );
+        },
+        child: AnnonceCard(annonce: annonce),
+      );
+    },
+  ),
+),
           );
         },
       ),

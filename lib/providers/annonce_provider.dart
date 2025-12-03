@@ -210,6 +210,35 @@ class AnnonceProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+  // Dans annonce_provider.dart - ajouter cette méthode
+Future<void> updateAnnonce(int id, Map<String, dynamic> annonceData) async {
+  _isLoading = true;
+  _error = null;
+  notifyListeners();
+
+  try {
+    final updatedAnnonce = await _apiService.updateAnnonce(id, annonceData);
+    
+    // Mettre à jour dans la liste des annonces
+    final index = _annonces.indexWhere((a) => a.idAnnonce == id);
+    if (index != -1) {
+      _annonces[index] = updatedAnnonce;
+    }
+    
+    // Mettre à jour l'annonce sélectionnée si c'est celle-ci
+    if (_selectedAnnonce?.idAnnonce == id) {
+      _selectedAnnonce = updatedAnnonce;
+    }
+    
+    _error = null;
+  } catch (e) {
+    _error = 'Erreur lors de la modification: $e';
+    print('Erreur updateAnnonce: $e');
+  } finally {
+    _isLoading = false;
+    notifyListeners();
+  }
+}
 
   // CORRECTION : Méthode pour récupérer le token depuis SharedPreferences
   Future<String?> _getToken() async {

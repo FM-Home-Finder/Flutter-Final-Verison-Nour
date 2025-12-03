@@ -5,6 +5,8 @@ import 'providers/annonce_provider.dart';
 import 'providers/favori_provider.dart';
 import 'screens/home_screen.dart';
 import 'screens/login_screen.dart';
+import 'providers/user_annonce_provider.dart';
+import 'providers/message_provider.dart';
 
 void main() {
   runApp(
@@ -13,6 +15,8 @@ void main() {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => AnnonceProvider()),
         ChangeNotifierProvider(create: (_) => FavoriProvider()),
+        ChangeNotifierProvider(create: (context) => UserAnnonceProvider()),
+         ChangeNotifierProvider(create: (ctx) => MessageProvider()),
       ],
       child: const MyApp(),
     ),

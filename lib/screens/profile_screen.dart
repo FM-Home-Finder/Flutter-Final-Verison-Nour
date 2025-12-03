@@ -2,10 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 import '../providers/auth_provider.dart';
+import '../screens/mes_annonces_screen.dart';
+import '../screens/edit_profile_screen.dart';
+import 'change_password_screen.dart';
 
-class ProfileScreen extends StatelessWidget {
+
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
+  @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
   void _showLogoutDialog(BuildContext context) {
     showDialog(
       context: context,
@@ -41,16 +50,24 @@ class ProfileScreen extends StatelessWidget {
     );
 
     if (pickedFile != null) {
-      // TODO: Implémenter l'upload de la photo
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Fonctionnalité d\'upload à implémenter')),
-      );
+      try {
+        await context.read<AuthProvider>().updateProfilePhoto(pickedFile);
+        // Le AuthProvider.notifyListeners() va automatiquement rafraîchir l'interface
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Photo de profil mise à jour')),
+        );
+      } catch (error) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erreur: $error')),
+        );
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final user = context.watch<AuthProvider>().user;
+    final authProvider = context.read<AuthProvider>();
 
     return Scaffold(
       appBar: AppBar(
@@ -142,7 +159,6 @@ class ProfileScreen extends StatelessWidget {
                       child: Column(
                         children: [
                           _buildInfoItem('Membre depuis', _formatDate(user.dateCreation)),
-                          
                           _buildInfoItem('Compte actif', user.isActive ? 'Oui' : 'Non'),
                         ],
                       ),
@@ -151,36 +167,60 @@ class ProfileScreen extends StatelessWidget {
 
                   const SizedBox(height: 24.0),
 
+                  // Afficher les erreurs
+                  if (authProvider.error != null)
+                    Container(
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(bottom: 16.0),
+                      padding: const EdgeInsets.all(12),
+                      decoration: BoxDecoration(
+                        color: const Color.fromARGB(255, 75, 160, 230),
+                        borderRadius: BorderRadius.circular(8),
+                        border: Border.all(color: Colors.red),
+                      ),
+                      child: Text(
+                        authProvider.error!,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
+
                   // Boutons d'action
                   Column(
                     children: [
                       _buildActionButton(
                         icon: Icons.edit,
                         text: 'Modifier le profil',
-                        onTap: () {
-                          // TODO: Naviguer vers l'écran d'édition
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Édition du profil à implémenter')),
+                        onTap: () async {
+                          // Attendre le retour de l'écran d'édition
+                          await Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const EditProfileScreen(),
+                            ),
                           );
+                          // Le AuthProvider.notifyListeners() va automatiquement rafraîchir l'interface
                         },
                       ),
                       _buildActionButton(
                         icon: Icons.lock,
                         text: 'Changer le mot de passe',
                         onTap: () {
-                          // TODO: Naviguer vers l'écran de changement de mot de passe
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Changement de mot de passe à implémenter')),
-                          );
-                        },
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => const ChangePasswordScreen()),
+                            );
+                            },
+                            
                       ),
                       _buildActionButton(
                         icon: Icons.home_work,
                         text: 'Mes annonces',
                         onTap: () {
-                          // TODO: Naviguer vers l'écran des annonces de l'utilisateur
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('Mes annonces à implémenter')),
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const MesAnnoncesScreen(),
+                            ),
                           );
                         },
                       ),

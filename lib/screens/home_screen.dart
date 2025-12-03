@@ -3,7 +3,8 @@ import 'annonces_screen.dart';
 import 'favoris_screen.dart';
 import 'profile_screen.dart';
 import 'search_screen.dart';
-import 'create_annonce_screen.dart'; // Ajouter cette importation
+import 'create_annonce_screen.dart';
+import 'conversation_list_screen.dart'; // Ajouter cette importation
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -19,7 +20,8 @@ class _HomeScreenState extends State<HomeScreen> {
     const AnnoncesScreen(),
     const SearchScreen(),
     const FavorisScreen(),
-    const ProfileScreen(),
+    const ConversationListScreen(), // Remplacer ProfileScreen par Messages
+    const ProfileScreen(), // Déplacer ProfileScreen à la fin
   ];
 
   @override
@@ -46,6 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(Icons.favorite),
             label: 'Favoris',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.message), // Icône pour les messages
+            label: 'Messages',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.person),
