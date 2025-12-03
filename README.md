@@ -7,7 +7,7 @@ Application Flutter pour trouver, lister et gérer des biens immobiliers
 # screenshots 
 
 ## Connexion
-![](capt/cc1.png)
+![](cc1.png)
 
 ## Inscription
 ![](capt/cc2.png)
@@ -74,6 +74,7 @@ Application Flutter pour trouver, lister et gérer des biens immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
