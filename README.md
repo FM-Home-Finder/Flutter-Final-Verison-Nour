@@ -10,37 +10,37 @@ Application Flutter pour trouver, lister et gérer des biens immobiliers
 ![](cc1.png)
 
 ## Inscription
-![](capt/cc2.png)
+![](cc2.png)
 
 ## Pages de list d'annonces
-![](capt/cc3.png)
+![](cc3.png)
 
 ## Recherche d'une annonce
-![](capt/cc4.png)
+![](cc4.png)
 
 ## Dètails d'une annonce
-![](capt/det.png)
+![](det.png)
 
 ## Ajouter une annonce
-![](capt/cc10.png)
+![](cc10.png)
 
 ## Gérer tes propres annonces 
-![](capt/cc9.png)
+![](cc9.png)
 
 ## Favoris 
-![](capt/cc5.png)
+![](cc5.png)
 
 ## Messagerie : converstaion 
-![](capt/msg.png)
+![](msg.png)
 
 ## profile
-![](capt/cc6.png)
+![](cc6.png)
 
 ## Modifier profile
-![](capt/cc7.png)
+![](cc7.png)
 
 ## Resset Mot de passe 
-![](capt/cc8.png)
+![](cc8.png)
 
 # Fonctionnalités
 
@@ -74,6 +74,7 @@ Application Flutter pour trouver, lister et gérer des biens immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
