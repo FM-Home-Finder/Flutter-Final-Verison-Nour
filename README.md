@@ -67,13 +67,14 @@ Application Flutter pour trouver, lister et gérer des biens immobiliers
 3. `flutter pub get`
 
 # backend FastAPI repository. 
-1. `git clone [https://github.com/Nour4git/lab2_Flutter-.git](https://github.com/FM-Home-Finder/Flutter-Final-Verison-Nour`
+1. `git clone [https://github.com/Nour4git/Mini_projet_backend_FMN]`
 2. `cd backend`
 3. `pip install -r requirements.txt`
 4. ` uvicorn main:app --host 0.0.0.0 --port 8000 --reload`
 
 # Run Flutter 
 flutter run 
+
 
 
 
