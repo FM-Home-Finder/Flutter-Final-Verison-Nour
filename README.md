@@ -1,8 +1,9 @@
+![](logo.png)   
 #  Home Finder App _ Flutter Version
 
 # Présentation
 
-![](logo.png)   Application Flutter pour trouver, lister et gérer des annonces immobiliers
+Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 # screenshots 
 
@@ -105,6 +106,7 @@
 
 # Run Flutter 
 flutter run 
+
 
 
 
