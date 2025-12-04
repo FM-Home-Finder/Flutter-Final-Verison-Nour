@@ -1,5 +1,7 @@
 ![](logo.png)   
 # **🔵 Home Finder App _ Flutter Version
+**🔵 Blue section:** This is important.
+**🔴 Red alert:** Something to fix.
 
 # Présentation
 
@@ -106,6 +108,7 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
