@@ -1,5 +1,5 @@
 ![](logo.png)   
-# ![Home Finder](https://img.shields.io/badge/Home%20Findr-blue?style=for-the-badge)
+# ![Home Finder](https://img.shields.io/badge/Home%20Finder-blue?style=for-the-badge)
 
 # Home Finder App _ Flutter Version
 
@@ -108,6 +108,7 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
