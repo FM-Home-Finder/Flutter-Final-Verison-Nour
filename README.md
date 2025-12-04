@@ -96,14 +96,14 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 4. ` uvicorn main:app --host 0.0.0.0 --port 8000 --reload`
 
 # Mcp Server repository: 
-1. `git clone [https://github.com/Nour4git/Mcp_server_home_finder]`
-2. `cd mcp`
+1. `git clone [https://github.com/Nour4git/Mini_projet_backend_FMN]`
+2. `cd backend`
 3. `pip install -r requirements.txt`
-4.  `.\venv\Scripts\Activate`
-5. ` python mcp_server.py`
+4. ` python mcp_server.py`
 
 # Run Flutter 
 flutter run 
+
 
 
 
