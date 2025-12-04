@@ -66,11 +66,11 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 ![](claude3.png)
 
-## Recherche par adresse
+## Recherche par type (vente ou location)
 
 ![](calude.png)
 
-## Recherche par type (vente ou location)
+## Recherche par adresse
 
 ![](claude2.png)
 
@@ -108,6 +108,7 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
