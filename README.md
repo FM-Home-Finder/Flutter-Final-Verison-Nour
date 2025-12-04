@@ -13,7 +13,7 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 ![](recherche.png)
 
 ## Dètails d'une annonce
-![](details2.png)
+![](details22.png)
 
 ## Ajouter une annonce
 ![](cree.png)
@@ -105,6 +105,7 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
