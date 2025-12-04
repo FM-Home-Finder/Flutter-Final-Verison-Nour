@@ -1,5 +1,6 @@
 ![](logo.png)   
 # Home Finder App _ Flutter Version
+<h1 style="color:blue">home findr</h1>
 
 
 # Présentation
@@ -107,6 +108,7 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
