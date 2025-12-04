@@ -82,8 +82,6 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 ![](nv12.png)
 ![](nv3.png)
 
-# Logo 
-![](logo.png)
 
 # Installation
 
@@ -106,6 +104,7 @@ Application Flutter pour trouver, lister et gérer des annonces immobiliers
 
 # Run Flutter 
 flutter run 
+
 
 
 
